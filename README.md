@@ -7,9 +7,9 @@ Contenu : en-tête avec téléphone, accroche, 4 prestations, bloc devis, 4 curs
 ## Démarrer un nouveau client
 
 1. Sur GitHub : **Use this template → Create a new repository** (ou copier le dossier).
-2. Remplir la fiche client dans `PROMPT.md`, et l'envoyer à Claude avec le lien du nouveau dépôt et les photos.
-3. Vérifier qu'il ne reste aucune balise : `grep -rn "{{" site-web` ne doit rien renvoyer.
-4. Dans le dépôt : **Settings → Pages → Source : GitHub Actions**. Le site se met en ligne à chaque modification de `site-web/`.
+2. Dans le nouveau dépôt : **Settings → Pages → Source : Deploy from a branch → main / (root)**. Une page à la racine renvoie vers `site-web/`. (Le mode « GitHub Actions » marche aussi.)
+3. Remplir le questionnaire de `PROMPT.md` avec ce que l'on sait de l'artisan (même peu), et l'envoyer à Claude avec les captures et les photos.
+4. Vérifier qu'il ne reste aucune balise : `grep -rn "{{" site-web` ne doit rien renvoyer.
 5. Domaine perso (facultatif) : créer un fichier `CNAME` à la racine contenant le domaine, ex. `client.mavillepro.eu`.
 
 ## Organisation
