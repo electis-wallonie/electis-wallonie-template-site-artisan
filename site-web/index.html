@@ -61,6 +61,13 @@
   .hover\:text-brand-light:hover { color: rgb(var(--brand-light)); }
   .logo-img { height: 56px; width: auto; }
   .logo-img { border-radius: 8px; }
+  /* 2e couleur (orange chantier) : devis gratuit, numéro en haut, puces */
+  .bg-accent { background-color: rgb(var(--brand-secondary)); color: #fff; }
+  .bg-accent:hover { background-color: rgb(var(--brand-secondary-hover)); }
+  .text-accent { color: rgb(var(--brand-secondary)); }
+  .btn-accent-outline { border: 2px solid rgb(var(--brand-secondary)); color: rgb(var(--brand-secondary)); }
+  .btn-accent-outline:hover { background-color: rgb(var(--brand-secondary)); color: #fff; }
+  .dot-accent { background-color: rgb(var(--brand-secondary)); }
   .logo-card { background: #0d0d0d; border-radius: 12px; padding: 6px; display: inline-block; }
   @media (min-width: 768px) { .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>
@@ -82,10 +89,10 @@
     </nav>
 
     <div class="flex items-center gap-3">
-      <a class="hidden sm:inline-flex items-center gap-2 border-2 border-brand-dark px-4 py-2 rounded text-brand-dark font-semibold text-sm hover:bg-brand-dark hover:text-white transition" href="tel:0622485808">
+      <a class="hidden sm:inline-flex items-center gap-2 btn-accent-outline px-4 py-2 rounded font-semibold text-sm transition" href="tel:0622485808">
         <i class="w-4 h-4" data-lucide="phone"></i><span>06 22 48 58 08</span>
       </a>
-      <a class="inline-flex items-center whitespace-nowrap bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-sm px-4 sm:px-5 py-2.5 rounded shadow transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
+      <a class="inline-flex items-center whitespace-nowrap bg-accent font-semibold text-sm px-4 sm:px-5 py-2.5 rounded shadow transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
       <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Menu" class="lg:hidden p-2 -mr-2 text-brand-dark" id="menu-toggle" type="button">
         <i class="w-6 h-6" data-lucide="menu"></i>
       </button>
@@ -98,7 +105,7 @@
       <a class="py-2.5" href="#realisations">Réalisations</a>
       <a class="py-2.5" href="#garantie">Garantie</a>
       <a class="py-2.5" href="#contact">Contact</a>
-      <a class="py-2.5 font-semibold text-brand-primary" href="tel:0622485808">Appeler le 06 22 48 58 08</a>
+      <a class="py-2.5 font-semibold text-accent" href="tel:0622485808">Appeler le 06 22 48 58 08</a>
     </div>
   </nav>
 </header>
@@ -118,7 +125,7 @@
         <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold px-7 py-3.5 rounded shadow-md transition active:scale-95" href="tel:0622485808">
           <i class="w-4 h-4" data-lucide="phone"></i><span>Appeler maintenant</span>
         </a>
-        <a class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-brand-dark bg-white hover:bg-slate-50 text-brand-dark font-semibold px-8 py-3.5 rounded transition" data-open-devis href="#devis">Devis gratuit</a>
+        <a class="w-full sm:w-auto inline-flex items-center justify-center bg-accent font-semibold px-8 py-3.5 rounded shadow-md transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
       </div>
     </div>
     <div class="lg:col-span-6 flex justify-center lg:justify-end">
@@ -176,13 +183,13 @@
     <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-6">Votre devis, <span class="text-brand-primary">sans surprise</span></h2>
     <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Décrivez-moi votre projet en deux minutes, ou appelez-moi directement. Je viens voir les pièces, je vous conseille sur les teintes et je vous remets un devis clair.</p>
     <ul class="space-y-3.5 mb-8 text-base text-slate-800">
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un rappel rapide pour caler la visite</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Devis gratuit</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Une visite sur place pour voir les surfaces</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un devis détaillé, poste par poste</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Mon attestation d'assurance décennale jointe au devis</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 dot-accent mt-2 shrink-0"></span><span>Un rappel rapide pour caler la visite</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 dot-accent mt-2 shrink-0"></span><span>Devis gratuit</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 dot-accent mt-2 shrink-0"></span><span>Une visite sur place pour voir les surfaces</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 dot-accent mt-2 shrink-0"></span><span>Un devis détaillé, poste par poste</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 dot-accent mt-2 shrink-0"></span><span>Mon attestation d'assurance décennale jointe au devis</span></li>
     </ul>
-    <a class="inline-block bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow-sm transition active:scale-95" data-open-devis href="#devis">Demander mon devis</a>
+    <a class="inline-block bg-accent font-semibold text-base px-8 py-3.5 rounded shadow-sm transition active:scale-95" data-open-devis href="#devis">Demander mon devis</a>
   </div>
 </section>
 
@@ -233,7 +240,7 @@
     </div>
 
     <div class="flex justify-center">
-      <a class="px-7 py-3 rounded bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-sm shadow-md transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
+      <a class="px-7 py-3 rounded bg-accent font-semibold text-sm shadow-md transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
     </div>
   </div>
 </section>
@@ -272,7 +279,7 @@
       <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow transition active:scale-95" href="tel:0622485808">
         <i class="w-4 h-4" data-lucide="phone"></i><span>06 22 48 58 08</span>
       </a>
-      <a class="w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-slate-100 text-brand-primary font-semibold text-base px-9 py-3.5 rounded shadow transition" data-open-devis href="#devis">Devis gratuit</a>
+      <a class="w-full sm:w-auto inline-flex items-center justify-center bg-accent font-semibold text-base px-9 py-3.5 rounded shadow transition" data-open-devis href="#devis">Devis gratuit</a>
     </div>
     <p class="text-slate-300 text-sm font-medium mb-1" id="zones">Zone d'intervention</p>
     <p class="text-slate-200 text-sm mb-6 max-w-2xl">Magescq et alentours, dans les Landes</p>

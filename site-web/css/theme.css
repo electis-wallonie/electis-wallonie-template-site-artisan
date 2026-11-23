@@ -8,6 +8,10 @@
   --brand-primary: 30 111 214;       /* #1E6FD6 bleu */
   --brand-primary-hover: 24 87 174;  /* #1857AE (accent un peu plus foncé) */
 
+  /* 2e couleur (orange chantier) : devis gratuit, numéro de téléphone, puces */
+  --brand-secondary: 232 89 12;        /* #E8590C */
+  --brand-secondary-hover: 201 74 8;   /* #C94A08 */
+
   /* Couleur principale foncée : titres, bloc Réalisations */
   --brand-dark: 31 35 40;            /* #1F2328 noir anthracite du camion */
   /* Version encore plus foncée : pied de page, en-tête du formulaire */
