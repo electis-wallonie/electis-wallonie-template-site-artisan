@@ -304,22 +304,18 @@
         <!-- Étape 1 -->
         <div data-step="1">
           <fieldset class="mb-6">
-            <legend class="text-lg font-bold text-slate-900 mb-3">Quel type de bien ?</legend>
+            <legend class="text-lg font-bold text-slate-900 mb-3">Quel type de bien souhaitez-vous faire peindre ?</legend>
             <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
               <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Maison" type="button">Maison</button>
-              <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Local pro / immeuble" type="button">Local pro</button>
+              <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Local pro" type="button">Local pro</button>
             </div>
           </fieldset>
           <fieldset class="mb-8">
-            <legend class="text-lg font-bold text-slate-900 mb-3">Quels travaux ?</legend>
-            <!-- 5 types de travaux + "Autre". data-value = libellé reçu par email, texte du bouton = libellé court -->
-            <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Murs" type="button">Murs</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Plafonds" type="button">Plafonds</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Murs + plafonds" type="button">Murs + plafonds</button>
+            <legend class="text-lg font-bold text-slate-900 mb-3">Que voulez-vous faire peindre ?</legend>
+            <div class="gap-px bg-slate-300 border border-slate-300" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr))">
               <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Extérieur" type="button">Extérieur</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Locaux pro" type="button">Locaux pro</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Autre" type="button">Autre</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Intérieur" type="button">Intérieur</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Intérieur et extérieur" type="button">Les deux</button>
             </div>
           </fieldset>
           <button class="devis-btn w-full py-4 text-lg font-semibold text-white bg-slate-400 cursor-not-allowed transition-colors" disabled id="devis-next" type="button">Suivant</button>
