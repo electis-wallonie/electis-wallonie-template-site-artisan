@@ -5,17 +5,17 @@
    ===================================================================== */
 :root {
   /* Couleur d'accent : boutons, liens, étoiles de section, curseurs */
-  --brand-primary: 37 99 235;        /* #2563EB */
-  --brand-primary-hover: 29 78 216;  /* #1D4ED8 (accent un peu plus foncé) */
+  --brand-primary: 107 91 214;       /* #6B5BD6 violet du rouleau */
+  --brand-primary-hover: 86 70 184;  /* #5646B8 (accent un peu plus foncé) */
 
   /* Couleur principale foncée : titres, bloc Réalisations */
-  --brand-dark: 30 41 59;            /* #1E293B */
+  --brand-dark: 31 29 43;            /* #1F1D2B */
   /* Version encore plus foncée : pied de page, en-tête du formulaire */
-  --brand-darker: 15 23 42;          /* #0F172A */
+  --brand-darker: 17 16 22;          /* #111016 noir du logo */
 
   /* Fonds clairs : sections alternées, cartes */
-  --brand-light: 241 245 249;        /* #F1F5F9 */
-  --brand-soft: 226 232 240;         /* #E2E8F0 (survol des choix du formulaire) */
+  --brand-light: 246 244 251;        /* #F6F4FB */
+  --brand-soft: 232 228 246;         /* #E8E4F6 (survol des choix du formulaire) */
 
   /* Polices (à charger aussi dans la balise Google Fonts des pages HTML) */
   --font-title: 'Oswald', sans-serif;

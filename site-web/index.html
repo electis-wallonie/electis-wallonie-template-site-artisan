@@ -5,14 +5,14 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!--
   TEMPLATE SITE ARTISAN (marque blanche)
-  Tout ce qui est entre {{ }} est à remplacer. Liste complète : README.md
+  Site JH Peinture (V1), réalisé à partir du template artisan. Voir README.md
   Couleurs et polices : css/theme.css
 -->
-<title>{{TITRE_SEO}}</title>
-<meta name="description" content="{{DESCRIPTION_SEO}}"/>
+<title>JH Peinture - Peintre en bâtiment | Murs, plafonds, neuf et rénovation</title>
+<meta name="description" content="JH Peinture, peintre en bâtiment : murs, plafonds, préparation des supports et locaux pro, en neuf ou en rénovation. Devis gratuit au 06 22 48 58 08."/>
 <link href="css/theme.css" rel="stylesheet"/>
 <link href="css/style.css" rel="stylesheet"/>
-<link href="images/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="images/favicon.png" rel="icon" type="image/png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
@@ -60,7 +60,10 @@
   .selection\:bg-brand-primary ::selection, .selection\:bg-brand-primary::selection { background: rgb(var(--brand-primary)); color: #fff; }
   .hover\:text-brand-light:hover { color: rgb(var(--brand-light)); }
   .logo-img { height: 56px; width: auto; }
-  .logo-card { background: #fff; border-radius: 10px; padding: 10px 16px; display: inline-block; }
+  .logo-img { border-radius: 8px; }
+  .logo-card { background: #0d0d0d; border-radius: 12px; padding: 6px; display: inline-block; }
+  /* Liseré arc-en-ciel repris du logo */
+  header.sticky::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 4px; background: linear-gradient(90deg, #F7B2D0, #FBE3A1, #B9F0C9, #A9DDF5, #C9B8F2); }
   @media (min-width: 768px) { .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>
 </head>
@@ -69,21 +72,20 @@
 <!-- ================= EN-TÊTE ================= -->
 <header class="w-full bg-white border-b border-slate-100 sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-    <a aria-label="{{NOM_ENTREPRISE}}, accueil" class="flex items-center shrink-0" href="#">
-      <img alt="{{NOM_ENTREPRISE}}" class="logo-img" height="56" width="200" src="images/logo.svg"/>
+    <a aria-label="JH Peinture, accueil" class="flex items-center shrink-0" href="#">
+      <img alt="JH Peinture" class="logo-img" height="168" width="373" src="images/logo.png"/>
     </a>
 
     <nav class="hidden lg:flex items-center gap-7 text-[15px] font-medium text-slate-700">
       <a class="hover:text-brand-primary transition-colors" href="#prestations">Prestations</a>
       <a class="hover:text-brand-primary transition-colors" href="#realisations">Réalisations</a>
       <a class="hover:text-brand-primary transition-colors" href="#garantie">Garantie</a>
-      <a class="hover:text-brand-primary transition-colors" href="#avis">Avis</a>
       <a class="hover:text-brand-primary transition-colors" href="#contact">Contact</a>
     </nav>
 
     <div class="flex items-center gap-3">
-      <a class="hidden sm:inline-flex items-center gap-2 border-2 border-brand-dark px-4 py-2 rounded text-brand-dark font-semibold text-sm hover:bg-brand-dark hover:text-white transition" href="tel:{{TEL_LIEN}}">
-        <i class="w-4 h-4" data-lucide="phone"></i><span>{{TEL_AFFICHE}}</span>
+      <a class="hidden sm:inline-flex items-center gap-2 border-2 border-brand-dark px-4 py-2 rounded text-brand-dark font-semibold text-sm hover:bg-brand-dark hover:text-white transition" href="tel:0622485808">
+        <i class="w-4 h-4" data-lucide="phone"></i><span>06 22 48 58 08</span>
       </a>
       <a class="inline-flex items-center whitespace-nowrap bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-sm px-4 sm:px-5 py-2.5 rounded shadow transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
       <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Menu" class="lg:hidden p-2 -mr-2 text-brand-dark" id="menu-toggle" type="button">
@@ -97,9 +99,8 @@
       <a class="py-2.5" href="#prestations">Prestations</a>
       <a class="py-2.5" href="#realisations">Réalisations</a>
       <a class="py-2.5" href="#garantie">Garantie</a>
-      <a class="py-2.5" href="#avis">Avis</a>
       <a class="py-2.5" href="#contact">Contact</a>
-      <a class="py-2.5 font-semibold text-brand-primary" href="tel:{{TEL_LIEN}}">Appeler le {{TEL_AFFICHE}}</a>
+      <a class="py-2.5 font-semibold text-brand-primary" href="tel:0622485808">Appeler le 06 22 48 58 08</a>
     </div>
   </nav>
 </header>
@@ -108,20 +109,15 @@
 <section class="relative bg-gradient-to-b from-brand-light to-white py-14 md:py-20 overflow-hidden border-b border-slate-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
     <div class="lg:col-span-6">
-      <p class="font-condensed text-sm font-semibold tracking-[0.2em] text-brand-primary mb-3">{{HERO_SURTITRE}}</p>
+      <p class="font-condensed text-sm font-semibold tracking-[0.2em] text-brand-primary mb-3">Peintre en bâtiment</p>
       <h1 class="font-condensed text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-brand-dark leading-[1.08] mb-5">
-        {{HERO_TITRE}} <span class="text-brand-primary">{{HERO_TITRE_ACCENT}}</span>
+        Vos projets de peinture, <span class="text-brand-primary">neuf ou rénovation</span>
       </h1>
-      <p class="text-lg text-slate-600 leading-relaxed mb-6 max-w-xl">
-        {{HERO_TEXTE}}
+      <p class="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
+        Auto-entrepreneur, je réalise vos travaux de peinture du début à la fin : préparation des murs, plafonds, finitions. Chez les particuliers comme dans les locaux professionnels.
       </p>
-      <!-- Note Google : supprimer ce bloc si l'entreprise n'a pas encore d'avis -->
-      <a class="rating-badge mb-8" href="#avis">
-        <span class="stars" aria-hidden="true">★★★★★</span>
-        <span><strong>{{NOTE_GOOGLE}}/5</strong> sur Google · {{NB_AVIS}} avis</span>
-      </a>
       <div class="flex flex-wrap gap-4">
-        <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold px-7 py-3.5 rounded shadow-md transition active:scale-95" href="tel:{{TEL_LIEN}}">
+        <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold px-7 py-3.5 rounded shadow-md transition active:scale-95" href="tel:0622485808">
           <i class="w-4 h-4" data-lucide="phone"></i><span>Appeler maintenant</span>
         </a>
         <a class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-brand-dark bg-white hover:bg-slate-50 text-brand-dark font-semibold px-8 py-3.5 rounded transition" data-open-devis href="#devis">Devis gratuit</a>
@@ -129,7 +125,7 @@
     </div>
     <div class="lg:col-span-6 flex justify-center lg:justify-end">
       <figure class="relative w-full max-w-[680px] drop-shadow-xl">
-        <img alt="Véhicule {{NOM_ENTREPRISE}}" class="w-full h-auto rounded-lg" height="1086" width="1448" src="images/hero.webp"/>
+        <img alt="Salle de formation repeinte par JH Peinture" class="w-full h-auto rounded-lg" height="1086" width="1448" src="images/hero.webp"/>
       </figure>
     </div>
   </div>
@@ -140,36 +136,36 @@
 <section class="py-16 md:py-24 bg-white" id="prestations">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mb-12">
-      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">{{PRESTATIONS_TITRE}} <span class="text-brand-primary">{{PRESTATIONS_TITRE_ACCENT}}</span></h2>
-      <p class="text-slate-600 text-base sm:text-lg leading-relaxed">{{PRESTATIONS_INTRO}}</p>
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">Mes <span class="text-brand-primary">prestations</span></h2>
+      <p class="text-slate-600 text-base sm:text-lg leading-relaxed">Du rebouchage à la dernière couche, je m'occupe de tout pour vous rendre des pièces propres, lumineuses et prêtes à vivre.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
-        <img alt="{{PRESTATION_1_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-1.jpg"/>
+        <img alt="Murs intérieurs" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-1.jpg"/>
         <div class="p-6">
-          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_1_ICONE}}"></i>{{PRESTATION_1_TITRE}}</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_1_TEXTE}}</p>
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="paint-roller"></i>Murs intérieurs</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Pièces de vie, chambres, couloirs, cuisines : vos murs repeints dans la teinte de votre choix, du blanc cassé aux couleurs plus marquées.</p>
         </div>
       </article>
       <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
-        <img alt="{{PRESTATION_2_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-2.jpg"/>
+        <img alt="Plafonds" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-2.jpg"/>
         <div class="p-6">
-          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_2_ICONE}}"></i>{{PRESTATION_2_TITRE}}</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_2_TEXTE}}</p>
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="lamp-ceiling"></i>Plafonds</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Remise en peinture des plafonds, même abîmés ou retouchés, pour un rendu uniforme sans traces ni reprises visibles.</p>
         </div>
       </article>
       <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
-        <img alt="{{PRESTATION_3_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-3.jpg"/>
+        <img alt="Préparation des supports" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-3.jpg"/>
         <div class="p-6">
-          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_3_ICONE}}"></i>{{PRESTATION_3_TITRE}}</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_3_TEXTE}}</p>
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="layers"></i>Préparation des supports</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Rebouchage des trous et des saignées, bandes, enduit, ponçage : un mur bien préparé, c'est une peinture qui tient et qui se voit.</p>
         </div>
       </article>
       <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
-        <img alt="{{PRESTATION_4_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-4.jpg"/>
+        <img alt="Locaux professionnels" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-4.jpg"/>
         <div class="p-6">
-          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_4_ICONE}}"></i>{{PRESTATION_4_TITRE}}</h3>
-          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_4_TEXTE}}</p>
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="building-2"></i>Locaux professionnels</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Bureaux, salles de réunion ou de formation : je rénove vos locaux, murs de couleur compris, en m'adaptant à votre activité.</p>
         </div>
       </article>
     </div>
@@ -180,13 +176,13 @@
 <section class="py-16 md:py-24 bg-brand-light" id="devis">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-6">Votre devis, <span class="text-brand-primary">sans surprise</span></h2>
-    <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">{{DEVIS_INTRO}}</p>
+    <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">Décrivez-moi votre projet en deux minutes, ou appelez-moi directement. Je viens voir les pièces, je vous conseille sur les teintes et je vous remets un devis clair.</p>
     <ul class="space-y-3.5 mb-8 text-base text-slate-800">
       <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un rappel rapide pour caler la visite</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Déplacement et devis gratuits</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un diagnostic sur place</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Devis gratuit</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Une visite sur place pour voir les surfaces</span></li>
       <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un devis détaillé, poste par poste</span></li>
-      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Nos attestations d'assurance jointes au devis</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Mon attestation d'assurance décennale jointe au devis</span></li>
     </ul>
     <a class="inline-block bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow-sm transition active:scale-95" data-open-devis href="#devis">Demander mon devis</a>
   </div>
@@ -196,77 +192,69 @@
 <section class="bg-brand-dark py-16 md:py-24 text-white" id="realisations">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center max-w-3xl mx-auto mb-14">
-      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Nos chantiers avant / après</h2>
-      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">Des photos de nos vrais chantiers. Faites glisser le curseur pour comparer.</p>
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Mes chantiers avant / après</h2>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">Des photos de mes vrais chantiers. Faites glisser le curseur pour comparer.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
       <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
         <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
           <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
           <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
-          <img alt="{{AVANT_APRES_1_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-1.jpg"/>
-          <div class="slider-overlay"><img alt="{{AVANT_APRES_1_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-1.jpg"/></div>
+          <img alt="Séjour : plafond en blanc cassé, après" class="slider-img" loading="lazy" src="images/apres-1.jpg"/>
+          <div class="slider-overlay"><img alt="Séjour : plafond en blanc cassé, avant" class="slider-img" loading="lazy" src="images/avant-1.jpg"/></div>
           <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
         </div>
         <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
-          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_1_TITRE}}</h3>
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">Séjour : plafond en blanc cassé</h3>
         </div>
       </div>
       <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
         <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
           <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
           <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
-          <img alt="{{AVANT_APRES_2_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-2.jpg"/>
-          <div class="slider-overlay"><img alt="{{AVANT_APRES_2_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-2.jpg"/></div>
+          <img alt="Mur de salon rebouché et repeint, après" class="slider-img" loading="lazy" src="images/apres-2.jpg"/>
+          <div class="slider-overlay"><img alt="Mur de salon rebouché et repeint, avant" class="slider-img" loading="lazy" src="images/avant-2.jpg"/></div>
           <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
         </div>
         <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
-          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_2_TITRE}}</h3>
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">Mur de salon rebouché et repeint</h3>
         </div>
       </div>
       <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
         <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
           <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
           <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
-          <img alt="{{AVANT_APRES_3_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-3.jpg"/>
-          <div class="slider-overlay"><img alt="{{AVANT_APRES_3_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-3.jpg"/></div>
+          <img alt="Mur de cuisine remis à neuf, après" class="slider-img" loading="lazy" src="images/apres-3.jpg"/>
+          <div class="slider-overlay"><img alt="Mur de cuisine remis à neuf, avant" class="slider-img" loading="lazy" src="images/avant-3.jpg"/></div>
           <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
         </div>
         <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
-          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_3_TITRE}}</h3>
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">Mur de cuisine remis à neuf</h3>
         </div>
       </div>
       <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
         <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
           <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
           <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
-          <img alt="{{AVANT_APRES_4_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-4.jpg"/>
-          <div class="slider-overlay"><img alt="{{AVANT_APRES_4_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-4.jpg"/></div>
+          <img alt="Plafond de cuisine rénové, après" class="slider-img" loading="lazy" src="images/apres-4.jpg"/>
+          <div class="slider-overlay"><img alt="Plafond de cuisine rénové, avant" class="slider-img" loading="lazy" src="images/avant-4.jpg"/></div>
           <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
         </div>
         <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
-          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_4_TITRE}}</h3>
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">Plafond de cuisine rénové</h3>
         </div>
       </div>
     </div>
 
-    <h3 class="font-condensed text-2xl sm:text-3xl font-bold mb-6">Sur nos chantiers</h3>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+    <h3 class="font-condensed text-2xl sm:text-3xl font-bold mb-6">Sur mes chantiers</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
       <figure class="relative overflow-hidden rounded-lg group">
-        <img alt="{{CHANTIER_1_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-1.jpg"/>
-        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_1_LEGENDE}}</figcaption>
+        <img alt="Salle de formation pour militaires : avant" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-1.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">Salle de formation pour militaires : avant</figcaption>
       </figure>
       <figure class="relative overflow-hidden rounded-lg group">
-        <img alt="{{CHANTIER_2_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-2.jpg"/>
-        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_2_LEGENDE}}</figcaption>
-      </figure>
-      <figure class="relative overflow-hidden rounded-lg group">
-        <img alt="{{CHANTIER_3_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-3.jpg"/>
-        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_3_LEGENDE}}</figcaption>
-      </figure>
-      <figure class="relative overflow-hidden rounded-lg group">
-        <img alt="{{CHANTIER_4_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-4.jpg"/>
-        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_4_LEGENDE}}</figcaption>
+        <img alt="La même salle, après rénovation" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-2.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">La même salle, après rénovation</figcaption>
       </figure>
     </div>
     <div class="flex justify-center">
@@ -279,49 +267,21 @@
 <section class="py-16 md:py-24 bg-white" id="garantie">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-8 items-stretch">
     <figure class="md:col-span-2 relative rounded-lg overflow-hidden shadow-lg min-h-[340px]">
-      <img alt="L'équipe {{NOM_ENTREPRISE}}" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="images/equipe.jpg"/>
+      <img alt="Séjour repeint en blanc cassé par JH Peinture" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="images/equipe.jpg"/>
       <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-white px-5 pt-10 pb-4">
-        <span class="font-condensed text-xl font-bold block">{{EQUIPE_TITRE}}</span>
-        <span class="text-sm text-white/85">{{EQUIPE_SOUS_TITRE}}</span>
+        <span class="font-condensed text-xl font-bold block">Johann, votre peintre</span>
+        <span class="text-sm text-white/85">Auto-entrepreneur · neuf et rénovation</span>
       </figcaption>
     </figure>
     <div class="md:col-span-3 flex flex-col gap-6">
       <div class="bg-brand-light rounded-r-lg p-8 border-l-[6px] border-brand-primary flex-1">
-        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-dark mb-3">{{ATOUT_1_TITRE}}</h3>
-        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">{{ATOUT_1_TEXTE}}</p>
+        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-dark mb-3">Assurance décennale</h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">Mes travaux sont couverts par une assurance décennale. L'attestation est jointe au devis : vous savez à qui vous confiez votre chantier.</p>
       </div>
       <div class="bg-brand-light rounded-r-lg p-8 border-l-[6px] border-brand-primary flex-1">
-        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-dark mb-3">{{ATOUT_2_TITRE}}</h3>
-        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">{{ATOUT_2_TEXTE}}</p>
+        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-dark mb-3">Un seul interlocuteur</h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">C'est moi qui fais le devis, qui prépare et qui peins. Un seul numéro à appeler, et un chantier rendu propre, meubles et sols protégés.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= AVIS GOOGLE ================= -->
-<!-- Uniquement de vrais avis clients, recopiés tels quels. Supprimer la section s'il n'y en a pas. -->
-<section class="py-16 md:py-24 bg-brand-light" id="avis">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">Ils nous ont <span class="text-brand-primary">fait confiance</span></h2>
-      <p class="text-slate-600 text-base sm:text-lg"><span class="stars" aria-hidden="true">★★★★★</span> <strong class="text-brand-dark">{{NOTE_GOOGLE}}/5</strong> sur {{NB_AVIS}} avis Google</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <blockquote class="review">
-        <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
-        <p>« {{AVIS_1_TEXTE}} »</p>
-        <footer>{{AVIS_1_AUTEUR}} · avis Google</footer>
-      </blockquote>
-      <blockquote class="review">
-        <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
-        <p>« {{AVIS_2_TEXTE}} »</p>
-        <footer>{{AVIS_2_AUTEUR}} · avis Google</footer>
-      </blockquote>
-      <blockquote class="review">
-        <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
-        <p>« {{AVIS_3_TEXTE}} »</p>
-        <footer>{{AVIS_3_AUTEUR}} · avis Google</footer>
-      </blockquote>
     </div>
   </div>
 </section>
@@ -330,20 +290,20 @@
 <footer class="bg-brand-darker text-white pt-16 pb-8" id="contact">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
     <div class="logo-card mb-6">
-      <img alt="{{NOM_ENTREPRISE}}" class="logo-img" height="56" width="200" src="images/logo.svg"/>
+      <img alt="JH Peinture" class="logo-img" height="168" width="373" src="images/logo.png"/>
     </div>
-    <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-8">{{SLOGAN}}</h2>
+    <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-8">Un projet de peinture ? Parlons-en.</h2>
     <div class="flex flex-wrap items-center justify-center gap-4 mb-10 w-full sm:w-auto">
-      <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow transition active:scale-95" href="tel:{{TEL_LIEN}}">
-        <i class="w-4 h-4" data-lucide="phone"></i><span>{{TEL_AFFICHE}}</span>
+      <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow transition active:scale-95" href="tel:0622485808">
+        <i class="w-4 h-4" data-lucide="phone"></i><span>06 22 48 58 08</span>
       </a>
       <a class="w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-slate-100 text-brand-primary font-semibold text-base px-9 py-3.5 rounded shadow transition" data-open-devis href="#devis">Devis gratuit</a>
     </div>
     <p class="text-slate-300 text-sm font-medium mb-1" id="zones">Zone d'intervention</p>
-    <p class="text-slate-200 text-sm mb-6 max-w-2xl">{{ZONES}}</p>
+    <p class="text-slate-200 text-sm mb-6 max-w-2xl">[à compléter]</p>
     <div class="text-slate-400 text-xs sm:text-sm flex flex-wrap items-center justify-center gap-2 mb-12">
-      <a class="hover:underline" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
-      <span>·</span><span>{{ADRESSE}}</span>
+      <a class="hover:underline" href="mailto:johann.haullard@outlook.fr">johann.haullard@outlook.fr</a>
+      <span>·</span><span>Adresse : [à compléter]</span>
       <span>·</span><a class="hover:underline" href="#realisations">Réalisations</a>
       <span>·</span><a class="hover:underline" href="mentions-legales.html">Mentions légales</a>
       <span>·</span><a class="hover:underline" href="confidentialite.html">Confidentialité</a>
@@ -351,7 +311,7 @@
     </div>
   </div>
   <div class="border-t border-white/10 pt-6">
-    <p class="text-center font-condensed text-xs sm:text-sm tracking-wider text-slate-500">{{NOM_ENTREPRISE}} {{ANNEE}} · {{VILLE_SIEGE}} ({{CODE_POSTAL}}) · SIREN {{SIREN}}</p>
+    <p class="text-center font-condensed text-xs sm:text-sm tracking-wider text-slate-500">JH Peinture 2026 · Ville : [à compléter] · SIREN 103 999 579</p>
   </div>
 </footer>
 
@@ -379,11 +339,11 @@
             <legend class="text-lg font-bold text-slate-900 mb-3">Quels travaux ?</legend>
             <!-- 5 types de travaux + "Autre". data-value = libellé reçu par email, texte du bouton = libellé court -->
             <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_1}}" type="button">{{TRAVAUX_1}}</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_2}}" type="button">{{TRAVAUX_2}}</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_3}}" type="button">{{TRAVAUX_3}}</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_4}}" type="button">{{TRAVAUX_4}}</button>
-              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_5}}" type="button">{{TRAVAUX_5}}</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Murs" type="button">Murs</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Plafonds" type="button">Plafonds</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Murs + plafonds" type="button">Murs + plafonds</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Enduit / rebouchage" type="button">Enduit / rebouchage</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Locaux pro" type="button">Locaux pro</button>
               <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Autre" type="button">Autre</button>
             </div>
           </fieldset>
@@ -413,7 +373,7 @@
         <div class="hidden text-center py-4" data-step="3">
           <div class="mx-auto mb-5 w-16 h-16 rounded-full bg-brand-primary text-white flex items-center justify-center"><i class="w-8 h-8" data-lucide="check"></i></div>
           <p class="text-xl font-bold text-slate-900 mb-2">Merci, votre demande est bien partie !</p>
-          <p class="text-slate-700 mb-7">On vous rappelle rapidement pour caler la visite. Pour une urgence, appelez directement le <a class="font-semibold text-brand-primary hover:underline whitespace-nowrap" href="tel:{{TEL_LIEN}}">{{TEL_AFFICHE}}</a>.</p>
+          <p class="text-slate-700 mb-7">Je vous rappelle rapidement pour caler la visite. Pour une urgence, appelez directement le <a class="font-semibold text-brand-primary hover:underline whitespace-nowrap" href="tel:0622485808">06 22 48 58 08</a>.</p>
           <button class="devis-btn w-full py-4 text-lg font-semibold text-white bg-brand-darker hover:bg-black transition-colors" data-close-devis type="button">Fermer</button>
         </div>
       </form>
@@ -427,8 +387,8 @@
 <!-- ================= RÉGLAGES TECHNIQUES ================= -->
 <script>
   window.SITE = {
-    nom: '{{NOM_ENTREPRISE}}',
-    telephone: '{{TEL_AFFICHE}}',
+    nom: 'JH Peinture',
+    telephone: '06 22 48 58 08',
     // Clé Web3Forms (https://web3forms.com) liée à l'email de l'entreprise. Vide = formulaire désactivé.
     web3formsKey: '',
     // Identifiant du pixel Meta. Vide = pas de pixel ni de bandeau cookies.
@@ -587,7 +547,7 @@
         'Source': window.siteSource ? window.siteSource() : 'Inconnue'
       };
 
-      if (!KEY) { showError(`Le formulaire n'est pas encore activé. Appelez-nous au ${TEL}.`); return; }
+      if (!KEY) { showError(`Le formulaire n'est pas encore activé. Appelez-moi au ${TEL}.`); return; }
       submitBtn.disabled = true; submitBtn.textContent = 'Envoi…';
       try {
         const res = await fetch(FORM_ENDPOINT, {
@@ -600,7 +560,7 @@
         if (window.siteLead) window.siteLead();
         showStep(3);
       } catch (err) {
-        showError(`L'envoi n'a pas fonctionné. Réessayez ou appelez-nous au ${TEL}.`);
+        showError(`L'envoi n'a pas fonctionné. Réessayez ou appelez-moi au ${TEL}.`);
       } finally {
         submitBtn.disabled = false; submitBtn.textContent = 'Envoyer';
       }
