@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!--
+  TEMPLATE SITE ARTISAN (marque blanche)
+  Tout ce qui est entre {{ }} est à remplacer. Liste complète : README.md
+  Couleurs et polices : css/theme.css
+-->
+<title>{{TITRE_SEO}}</title>
+<meta name="description" content="{{DESCRIPTION_SEO}}"/>
+<link href="css/theme.css" rel="stylesheet"/>
+<link href="css/style.css" rel="stylesheet"/>
+<link href="images/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
+<script src="js/lucide.min.js"></script>
+<style>
+  .font-condensed { font-family: var(--font-title); text-transform: uppercase; letter-spacing: 0.02em; }
+  body { font-family: var(--font-body); color: #334155; }
+
+  /* Avant / après */
+  .slider-container { position: relative; overflow: hidden; user-select: none; }
+  .slider-img { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .slider-overlay { position: absolute; top: 0; left: 0; bottom: 0; width: 50%; overflow: hidden; }
+  .slider-overlay > * { position: absolute; top: 0; left: 0; height: 100%; max-width: none; pointer-events: none; }
+  .slider-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; transform: translateX(-50%); pointer-events: none; }
+  .slider-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; border-radius: 9999px; background: rgb(var(--brand-primary)); border: 2px solid #fff; box-shadow: 0 4px 6px -1px rgba(0,0,0,.25); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+  /* Fenêtre de devis */
+  .devis-opt { background: #fff; color: rgb(var(--brand-darker)); font-size: 1rem; padding: 1.15rem .5rem; transition: background-color .15s, color .15s; }
+  .devis-opt:hover { background: rgb(var(--brand-soft)); }
+  .devis-opt[aria-pressed="true"] { background: rgb(var(--brand-primary)); color: #fff; font-weight: 600; }
+  .devis-opt:focus-visible, .devis-btn:focus-visible { outline: 3px solid rgb(var(--brand-dark)); outline-offset: -3px; }
+  .devis-input { width: 100%; border: 0; background: #fff; padding: 1.05rem 1.1rem; font-size: 1rem; color: rgb(var(--brand-darker)); }
+  .devis-input::placeholder { color: #6B7280; }
+  .devis-input:focus { outline: none; box-shadow: inset 0 0 0 2px rgb(var(--brand-primary)); }
+  .devis-input[aria-invalid="true"] { box-shadow: inset 0 0 0 2px #DC2626; background: #FEF2F2; }
+  #devis-modal.is-open { display: flex; }
+  #mobile-menu.is-open { display: block; }
+
+  /* Bandeau cookies */
+  .cookie-banner { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 90; max-width: 560px; margin: 0 auto; background: #fff; color: rgb(var(--brand-darker)); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,.25); padding: 16px 18px; font-size: .9rem; line-height: 1.45; }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-actions { display: flex; gap: 10px; margin-top: 12px; }
+  .cookie-actions button { flex: 1; padding: 10px; font-weight: 600; border-radius: 4px; background: rgb(var(--brand-dark)); color: #fff; }
+  .cookie-actions button:hover { background: rgb(var(--brand-darker)); }
+
+  /* Note Google et avis */
+  .stars { color: #F5B301; letter-spacing: .08em; }
+  .rating-badge { display: inline-flex; align-items: center; gap: .6rem; background: #fff; border: 1px solid #E2E8F0; border-radius: 9999px; padding: .45rem 1rem; font-size: .9rem; color: rgb(var(--brand-darker)); box-shadow: 0 1px 2px rgba(0,0,0,.05); text-decoration: none; }
+  .rating-badge:hover { border-color: rgb(var(--brand-primary)); }
+  .review { background: #fff; border-radius: 8px; border-top: 4px solid rgb(var(--brand-primary)); padding: 1.5rem; margin: 0; display: flex; flex-direction: column; gap: .75rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .review p { color: #334155; font-size: .95rem; line-height: 1.6; margin: 0; flex: 1; }
+  .review footer { font-size: .85rem; font-weight: 600; color: rgb(var(--brand-dark)); }
+
+  .aspect-\[4\/3\] { aspect-ratio: 4 / 3; }
+  .selection\:bg-brand-primary ::selection, .selection\:bg-brand-primary::selection { background: rgb(var(--brand-primary)); color: #fff; }
+  .hover\:text-brand-light:hover { color: rgb(var(--brand-light)); }
+  .logo-img { height: 56px; width: auto; }
+  .logo-card { background: #fff; border-radius: 10px; padding: 10px 16px; display: inline-block; }
+  @media (min-width: 768px) { .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>
+</head>
+<body class="bg-white text-slate-800 antialiased selection:bg-brand-primary selection:text-white">
+
+<!-- ================= EN-TÊTE ================= -->
+<header class="w-full bg-white border-b border-slate-100 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <a aria-label="{{NOM_ENTREPRISE}}, accueil" class="flex items-center shrink-0" href="#">
+      <img alt="{{NOM_ENTREPRISE}}" class="logo-img" height="56" width="200" src="images/logo.svg"/>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-7 text-[15px] font-medium text-slate-700">
+      <a class="hover:text-brand-primary transition-colors" href="#prestations">Prestations</a>
+      <a class="hover:text-brand-primary transition-colors" href="#realisations">Réalisations</a>
+      <a class="hover:text-brand-primary transition-colors" href="#garantie">Garantie</a>
+      <a class="hover:text-brand-primary transition-colors" href="#avis">Avis</a>
+      <a class="hover:text-brand-primary transition-colors" href="#contact">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a class="hidden sm:inline-flex items-center gap-2 border-2 border-brand-dark px-4 py-2 rounded text-brand-dark font-semibold text-sm hover:bg-brand-dark hover:text-white transition" href="tel:{{TEL_LIEN}}">
+        <i class="w-4 h-4" data-lucide="phone"></i><span>{{TEL_AFFICHE}}</span>
+      </a>
+      <a class="inline-flex items-center whitespace-nowrap bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-sm px-4 sm:px-5 py-2.5 rounded shadow transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
+      <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Menu" class="lg:hidden p-2 -mr-2 text-brand-dark" id="menu-toggle" type="button">
+        <i class="w-6 h-6" data-lucide="menu"></i>
+      </button>
+    </div>
+  </div>
+  <!-- Menu mobile -->
+  <nav class="hidden lg:hidden border-t border-slate-100 bg-white" id="mobile-menu">
+    <div class="px-4 py-3 flex flex-col text-base font-medium text-slate-700">
+      <a class="py-2.5" href="#prestations">Prestations</a>
+      <a class="py-2.5" href="#realisations">Réalisations</a>
+      <a class="py-2.5" href="#garantie">Garantie</a>
+      <a class="py-2.5" href="#avis">Avis</a>
+      <a class="py-2.5" href="#contact">Contact</a>
+      <a class="py-2.5 font-semibold text-brand-primary" href="tel:{{TEL_LIEN}}">Appeler le {{TEL_AFFICHE}}</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="relative bg-gradient-to-b from-brand-light to-white py-14 md:py-20 overflow-hidden border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+    <div class="lg:col-span-6">
+      <p class="font-condensed text-sm font-semibold tracking-[0.2em] text-brand-primary mb-3">{{HERO_SURTITRE}}</p>
+      <h1 class="font-condensed text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight text-brand-dark leading-[1.08] mb-5">
+        {{HERO_TITRE}} <span class="text-brand-primary">{{HERO_TITRE_ACCENT}}</span>
+      </h1>
+      <p class="text-lg text-slate-600 leading-relaxed mb-6 max-w-xl">
+        {{HERO_TEXTE}}
+      </p>
+      <!-- Note Google : supprimer ce bloc si l'entreprise n'a pas encore d'avis -->
+      <a class="rating-badge mb-8" href="#avis">
+        <span class="stars" aria-hidden="true">★★★★★</span>
+        <span><strong>{{NOTE_GOOGLE}}/5</strong> sur Google · {{NB_AVIS}} avis</span>
+      </a>
+      <div class="flex flex-wrap gap-4">
+        <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold px-7 py-3.5 rounded shadow-md transition active:scale-95" href="tel:{{TEL_LIEN}}">
+          <i class="w-4 h-4" data-lucide="phone"></i><span>Appeler maintenant</span>
+        </a>
+        <a class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-brand-dark bg-white hover:bg-slate-50 text-brand-dark font-semibold px-8 py-3.5 rounded transition" data-open-devis href="#devis">Devis gratuit</a>
+      </div>
+    </div>
+    <div class="lg:col-span-6 flex justify-center lg:justify-end">
+      <figure class="relative w-full max-w-[680px] drop-shadow-xl">
+        <img alt="Véhicule {{NOM_ENTREPRISE}}" class="w-full h-auto rounded-lg" height="1086" width="1448" src="images/hero.webp"/>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRESTATIONS ================= -->
+<!-- Icônes : noms Lucide (https://lucide.dev/icons), ex. house, droplets, sparkles, paint-roller, hammer, wrench, zap, flame -->
+<section class="py-16 md:py-24 bg-white" id="prestations">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl mb-12">
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">{{PRESTATIONS_TITRE}} <span class="text-brand-primary">{{PRESTATIONS_TITRE_ACCENT}}</span></h2>
+      <p class="text-slate-600 text-base sm:text-lg leading-relaxed">{{PRESTATIONS_INTRO}}</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
+        <img alt="{{PRESTATION_1_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-1.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_1_ICONE}}"></i>{{PRESTATION_1_TITRE}}</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_1_TEXTE}}</p>
+        </div>
+      </article>
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
+        <img alt="{{PRESTATION_2_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-2.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_2_ICONE}}"></i>{{PRESTATION_2_TITRE}}</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_2_TEXTE}}</p>
+        </div>
+      </article>
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
+        <img alt="{{PRESTATION_3_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-3.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_3_ICONE}}"></i>{{PRESTATION_3_TITRE}}</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_3_TEXTE}}</p>
+        </div>
+      </article>
+      <article class="bg-brand-light rounded-lg overflow-hidden border-t-4 border-brand-primary flex flex-col">
+        <img alt="{{PRESTATION_4_TITRE}}" class="w-full h-48 object-cover" loading="lazy" src="images/prestation-4.jpg"/>
+        <div class="p-6">
+          <h3 class="font-condensed text-xl font-bold text-brand-dark mb-2 flex items-center gap-2"><i class="w-5 h-5 text-brand-primary" data-lucide="{{PRESTATION_4_ICONE}}"></i>{{PRESTATION_4_TITRE}}</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">{{PRESTATION_4_TEXTE}}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEVIS ================= -->
+<section class="py-16 md:py-24 bg-brand-light" id="devis">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-6">Votre devis, <span class="text-brand-primary">sans surprise</span></h2>
+    <p class="text-base sm:text-lg text-slate-700 leading-relaxed mb-6">{{DEVIS_INTRO}}</p>
+    <ul class="space-y-3.5 mb-8 text-base text-slate-800">
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un rappel rapide pour caler la visite</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Déplacement et devis gratuits</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un diagnostic sur place</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Un devis détaillé, poste par poste</span></li>
+      <li class="flex items-start gap-3"><span class="w-2.5 h-2.5 bg-brand-primary mt-2 shrink-0"></span><span>Nos attestations d'assurance jointes au devis</span></li>
+    </ul>
+    <a class="inline-block bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow-sm transition active:scale-95" data-open-devis href="#devis">Demander mon devis</a>
+  </div>
+</section>
+
+<!-- ================= RÉALISATIONS (AVANT / APRÈS) ================= -->
+<section class="bg-brand-dark py-16 md:py-24 text-white" id="realisations">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Nos chantiers avant / après</h2>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">Des photos de nos vrais chantiers. Faites glisser le curseur pour comparer.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="{{AVANT_APRES_1_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-1.jpg"/>
+          <div class="slider-overlay"><img alt="{{AVANT_APRES_1_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-1.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_1_TITRE}}</h3>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="{{AVANT_APRES_2_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-2.jpg"/>
+          <div class="slider-overlay"><img alt="{{AVANT_APRES_2_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-2.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_2_TITRE}}</h3>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="{{AVANT_APRES_3_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-3.jpg"/>
+          <div class="slider-overlay"><img alt="{{AVANT_APRES_3_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-3.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_3_TITRE}}</h3>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow-xl flex flex-col">
+        <div class="relative h-72 sm:h-80 w-full slider-container cursor-ew-resize">
+          <span class="absolute top-3 left-3 z-20 bg-black/85 text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Avant</span>
+          <span class="absolute top-3 right-3 z-20 bg-brand-primary text-white font-condensed text-xs tracking-wider px-2 py-0.5 rounded font-semibold">Après</span>
+          <img alt="{{AVANT_APRES_4_TITRE}}, après" class="slider-img" loading="lazy" src="images/apres-4.jpg"/>
+          <div class="slider-overlay"><img alt="{{AVANT_APRES_4_TITRE}}, avant" class="slider-img" loading="lazy" src="images/avant-4.jpg"/></div>
+          <div class="slider-handle"><div class="slider-button"><i class="w-3.5 h-3.5" data-lucide="chevrons-left-right"></i></div></div>
+        </div>
+        <div class="p-4 text-center border-t border-slate-100 min-h-[72px] flex items-center justify-center">
+          <h3 class="font-condensed font-bold text-brand-dark text-lg leading-tight">{{AVANT_APRES_4_TITRE}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="font-condensed text-2xl sm:text-3xl font-bold mb-6">Sur nos chantiers</h3>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+      <figure class="relative overflow-hidden rounded-lg group">
+        <img alt="{{CHANTIER_1_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-1.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_1_LEGENDE}}</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group">
+        <img alt="{{CHANTIER_2_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-2.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_2_LEGENDE}}</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group">
+        <img alt="{{CHANTIER_3_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-3.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_3_LEGENDE}}</figcaption>
+      </figure>
+      <figure class="relative overflow-hidden rounded-lg group">
+        <img alt="{{CHANTIER_4_LEGENDE}}" class="w-full h-full object-cover aspect-[4/3] transition-transform duration-500 group-hover:scale-105" loading="lazy" src="images/chantier-4.jpg"/>
+        <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent text-white text-sm font-medium px-4 pt-8 pb-3">{{CHANTIER_4_LEGENDE}}</figcaption>
+      </figure>
+    </div>
+    <div class="flex justify-center">
+      <a class="px-7 py-3 rounded bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-sm shadow-md transition active:scale-95" data-open-devis href="#devis">Devis gratuit</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GARANTIE ================= -->
+<section class="py-16 md:py-24 bg-white" id="garantie">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-8 items-stretch">
+    <figure class="md:col-span-2 relative rounded-lg overflow-hidden shadow-lg min-h-[340px]">
+      <img alt="L'équipe {{NOM_ENTREPRISE}}" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="images/equipe.jpg"/>
+      <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent text-white px-5 pt-10 pb-4">
+        <span class="font-condensed text-xl font-bold block">{{EQUIPE_TITRE}}</span>
+        <span class="text-sm text-white/85">{{EQUIPE_SOUS_TITRE}}</span>
+      </figcaption>
+    </figure>
+    <div class="md:col-span-3 flex flex-col gap-6">
+      <div class="bg-brand-light rounded-r-lg p-8 border-l-[6px] border-brand-primary flex-1">
+        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-dark mb-3">{{ATOUT_1_TITRE}}</h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">{{ATOUT_1_TEXTE}}</p>
+      </div>
+      <div class="bg-brand-light rounded-r-lg p-8 border-l-[6px] border-brand-primary flex-1">
+        <h3 class="font-condensed font-bold text-2xl sm:text-3xl text-brand-dark mb-3">{{ATOUT_2_TITRE}}</h3>
+        <p class="text-slate-700 leading-relaxed text-sm sm:text-base">{{ATOUT_2_TEXTE}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AVIS GOOGLE ================= -->
+<!-- Uniquement de vrais avis clients, recopiés tels quels. Supprimer la section s'il n'y en a pas. -->
+<section class="py-16 md:py-24 bg-brand-light" id="avis">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4">Ils nous ont <span class="text-brand-primary">fait confiance</span></h2>
+      <p class="text-slate-600 text-base sm:text-lg"><span class="stars" aria-hidden="true">★★★★★</span> <strong class="text-brand-dark">{{NOTE_GOOGLE}}/5</strong> sur {{NB_AVIS}} avis Google</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <blockquote class="review">
+        <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p>« {{AVIS_1_TEXTE}} »</p>
+        <footer>{{AVIS_1_AUTEUR}} · avis Google</footer>
+      </blockquote>
+      <blockquote class="review">
+        <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p>« {{AVIS_2_TEXTE}} »</p>
+        <footer>{{AVIS_2_AUTEUR}} · avis Google</footer>
+      </blockquote>
+      <blockquote class="review">
+        <span class="stars" aria-label="5 étoiles sur 5">★★★★★</span>
+        <p>« {{AVIS_3_TEXTE}} »</p>
+        <footer>{{AVIS_3_AUTEUR}} · avis Google</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PIED DE PAGE ================= -->
+<footer class="bg-brand-darker text-white pt-16 pb-8" id="contact">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+    <div class="logo-card mb-6">
+      <img alt="{{NOM_ENTREPRISE}}" class="logo-img" height="56" width="200" src="images/logo.svg"/>
+    </div>
+    <h2 class="font-condensed text-3xl sm:text-4xl md:text-5xl font-bold mb-8">{{SLOGAN}}</h2>
+    <div class="flex flex-wrap items-center justify-center gap-4 mb-10 w-full sm:w-auto">
+      <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-brand-primaryHover text-white font-semibold text-base px-8 py-3.5 rounded shadow transition active:scale-95" href="tel:{{TEL_LIEN}}">
+        <i class="w-4 h-4" data-lucide="phone"></i><span>{{TEL_AFFICHE}}</span>
+      </a>
+      <a class="w-full sm:w-auto inline-flex items-center justify-center bg-white hover:bg-slate-100 text-brand-primary font-semibold text-base px-9 py-3.5 rounded shadow transition" data-open-devis href="#devis">Devis gratuit</a>
+    </div>
+    <p class="text-slate-300 text-sm font-medium mb-1" id="zones">Zone d'intervention</p>
+    <p class="text-slate-200 text-sm mb-6 max-w-2xl">{{ZONES}}</p>
+    <div class="text-slate-400 text-xs sm:text-sm flex flex-wrap items-center justify-center gap-2 mb-12">
+      <a class="hover:underline" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+      <span>·</span><span>{{ADRESSE}}</span>
+      <span>·</span><a class="hover:underline" href="#realisations">Réalisations</a>
+      <span>·</span><a class="hover:underline" href="mentions-legales.html">Mentions légales</a>
+      <span>·</span><a class="hover:underline" href="confidentialite.html">Confidentialité</a>
+      <span>·</span><button class="hover:underline" data-cookie-settings type="button">Gérer les cookies</button>
+    </div>
+  </div>
+  <div class="border-t border-white/10 pt-6">
+    <p class="text-center font-condensed text-xs sm:text-sm tracking-wider text-slate-500">{{NOM_ENTREPRISE}} {{ANNEE}} · {{VILLE_SIEGE}} ({{CODE_POSTAL}}) · SIREN {{SIREN}}</p>
+  </div>
+</footer>
+
+<!-- ================= FENÊTRE DE DEVIS ================= -->
+<div aria-labelledby="devis-title" aria-modal="true" class="fixed inset-0 z-[100] hidden items-start sm:items-center justify-center overflow-y-auto px-4 py-8" id="devis-modal" role="dialog">
+  <div class="fixed inset-0 bg-slate-900/60" data-close-devis></div>
+  <div class="relative w-full max-w-xl">
+    <div class="bg-[#F2F2F2] rounded-md overflow-hidden shadow-2xl">
+      <div class="bg-brand-darker px-6 sm:px-8 py-5 flex items-center justify-between">
+        <h2 class="font-condensed text-2xl sm:text-3xl font-bold text-white" id="devis-title">Votre projet</h2>
+        <button aria-label="Fermer" class="devis-btn text-white/90 hover:text-white p-1 -mr-1 rounded" data-close-devis type="button"><i class="w-7 h-7" data-lucide="x"></i></button>
+      </div>
+      <form class="px-6 sm:px-8 py-7" id="devis-form" novalidate>
+        <input aria-hidden="true" autocomplete="off" class="hidden" name="site_web" tabindex="-1" type="text"/>
+        <!-- Étape 1 -->
+        <div data-step="1">
+          <fieldset class="mb-6">
+            <legend class="text-lg font-bold text-slate-900 mb-3">Quel type de bien ?</legend>
+            <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
+              <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Maison" type="button">Maison</button>
+              <button aria-pressed="false" class="devis-opt" data-group="bien" data-value="Local pro / immeuble" type="button">Local pro</button>
+            </div>
+          </fieldset>
+          <fieldset class="mb-8">
+            <legend class="text-lg font-bold text-slate-900 mb-3">Quels travaux ?</legend>
+            <!-- 5 types de travaux + "Autre". data-value = libellé reçu par email, texte du bouton = libellé court -->
+            <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300">
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_1}}" type="button">{{TRAVAUX_1}}</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_2}}" type="button">{{TRAVAUX_2}}</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_3}}" type="button">{{TRAVAUX_3}}</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_4}}" type="button">{{TRAVAUX_4}}</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="{{TRAVAUX_5}}" type="button">{{TRAVAUX_5}}</button>
+              <button aria-pressed="false" class="devis-opt" data-group="travaux" data-value="Autre" type="button">Autre</button>
+            </div>
+          </fieldset>
+          <button class="devis-btn w-full py-4 text-lg font-semibold text-white bg-slate-400 cursor-not-allowed transition-colors" disabled id="devis-next" type="button">Suivant</button>
+        </div>
+        <!-- Étape 2 -->
+        <div class="hidden" data-step="2">
+          <div class="grid grid-cols-2 gap-px bg-slate-300 border border-slate-300 mb-8">
+            <label class="sr-only" for="d-prenom">Prénom</label>
+            <input autocomplete="given-name" class="devis-input" id="d-prenom" name="prenom" placeholder="Prénom *" required type="text"/>
+            <label class="sr-only" for="d-nom">Nom</label>
+            <input autocomplete="family-name" class="devis-input" id="d-nom" name="nom" placeholder="Nom *" required type="text"/>
+            <label class="sr-only" for="d-email">Email</label>
+            <input autocomplete="email" class="devis-input col-span-2" id="d-email" name="email" placeholder="Email *" required type="email"/>
+            <label class="sr-only" for="d-tel">Téléphone</label>
+            <input autocomplete="tel" class="devis-input col-span-2" id="d-tel" inputmode="tel" name="telephone" pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.\-]*\d{2}){4}$" placeholder="Téléphone *" required type="tel"/>
+            <label class="sr-only" for="d-cp">Code postal du chantier</label>
+            <input autocomplete="postal-code" class="devis-input col-span-2" id="d-cp" inputmode="numeric" maxlength="5" name="code_postal" pattern="\d{5}" placeholder="Code postal du chantier *" required type="text"/>
+          </div>
+          <p class="hidden -mt-5 mb-5 text-sm font-medium text-red-600" id="devis-error" role="alert"></p>
+          <div class="grid grid-cols-2 gap-px bg-slate-600">
+            <button class="devis-btn py-4 text-lg font-semibold text-white bg-brand-darker hover:bg-black transition-colors" id="devis-back" type="button">Retour</button>
+            <button class="devis-btn py-4 text-lg font-semibold text-white bg-brand-darker hover:bg-brand-primary transition-colors" id="devis-submit" type="submit">Envoyer</button>
+          </div>
+        </div>
+        <!-- Étape 3 -->
+        <div class="hidden text-center py-4" data-step="3">
+          <div class="mx-auto mb-5 w-16 h-16 rounded-full bg-brand-primary text-white flex items-center justify-center"><i class="w-8 h-8" data-lucide="check"></i></div>
+          <p class="text-xl font-bold text-slate-900 mb-2">Merci, votre demande est bien partie !</p>
+          <p class="text-slate-700 mb-7">On vous rappelle rapidement pour caler la visite. Pour une urgence, appelez directement le <a class="font-semibold text-brand-primary hover:underline whitespace-nowrap" href="tel:{{TEL_LIEN}}">{{TEL_AFFICHE}}</a>.</p>
+          <button class="devis-btn w-full py-4 text-lg font-semibold text-white bg-brand-darker hover:bg-black transition-colors" data-close-devis type="button">Fermer</button>
+        </div>
+      </form>
+    </div>
+    <p class="mt-5 text-center text-sm font-medium leading-relaxed text-white">
+      En envoyant ce formulaire, vous acceptez d'être recontacté par téléphone, par SMS ou par email au sujet de votre projet. Vos données ne sont ni revendues ni transmises à des tiers à des fins commerciales, et vous pouvez demander leur suppression à tout moment. <a class="underline hover:text-brand-light" href="confidentialite.html">Politique de confidentialité</a>.
+    </p>
+  </div>
+</div>
+
+<!-- ================= RÉGLAGES TECHNIQUES ================= -->
+<script>
+  window.SITE = {
+    nom: '{{NOM_ENTREPRISE}}',
+    telephone: '{{TEL_AFFICHE}}',
+    // Clé Web3Forms (https://web3forms.com) liée à l'email de l'entreprise. Vide = formulaire désactivé.
+    web3formsKey: '',
+    // Identifiant du pixel Meta. Vide = pas de pixel ni de bandeau cookies.
+    pixelId: ''
+  };
+</script>
+
+<!-- ================= SCRIPTS ================= -->
+<script>
+  if (window.lucide) lucide.createIcons();
+
+  // Menu mobile
+  (() => {
+    const btn = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+  })();
+
+  // Curseurs avant / après
+  document.querySelectorAll('.slider-container').forEach(slider => {
+    const overlay = slider.querySelector('.slider-overlay');
+    const handle = slider.querySelector('.slider-handle');
+    const inner = overlay.firstElementChild;
+    const matchWidth = () => { inner.style.width = slider.offsetWidth + 'px'; };
+    matchWidth();
+    window.addEventListener('resize', matchWidth);
+    let dragging = false;
+    const update = e => {
+      const rect = slider.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      const pct = Math.max(0, Math.min(100, x / rect.width * 100));
+      overlay.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    };
+    slider.addEventListener('mousedown', e => { dragging = true; update(e); });
+    window.addEventListener('mousemove', e => { if (dragging) update(e); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+    slider.addEventListener('touchstart', e => { dragging = true; update(e); }, { passive: true });
+    window.addEventListener('touchmove', e => { if (dragging) update(e); }, { passive: true });
+    window.addEventListener('touchend', () => { dragging = false; });
+  });
+</script>
+<script>
+  // ============================================================
+  // ENVOI DU FORMULAIRE via Web3Forms (https://web3forms.com)
+  // Les demandes arrivent par email à l'adresse liée à la clé.
+  // ============================================================
+  (() => {
+    const FORM_ENDPOINT = 'https://api.web3forms.com/submit';
+    const { nom: NOM, telephone: TEL, web3formsKey: KEY } = window.SITE;
+    const modal = document.getElementById('devis-modal');
+    const form = document.getElementById('devis-form');
+    const title = document.getElementById('devis-title');
+    const nextBtn = document.getElementById('devis-next');
+    const backBtn = document.getElementById('devis-back');
+    const submitBtn = document.getElementById('devis-submit');
+    const errorBox = document.getElementById('devis-error');
+    const steps = form.querySelectorAll('[data-step]');
+    const titles = { 1: 'Votre projet', 2: 'Vos coordonnées', 3: 'Demande envoyée' };
+    const choice = { bien: '', travaux: '' };
+    let lastTrigger = null, currentStep = 1;
+
+    function showStep(n) {
+      currentStep = n;
+      steps.forEach(s => s.classList.toggle('hidden', s.dataset.step !== String(n)));
+      title.textContent = titles[n];
+      const first = form.querySelector(`[data-step="${n}"] input, [data-step="${n}"] button`);
+      if (first) first.focus({ preventScroll: true });
+    }
+    function openModal(e) {
+      if (e) e.preventDefault();
+      lastTrigger = e ? e.currentTarget : null;
+      if (currentStep === 3) resetForm();
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      showStep(currentStep);
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+    }
+    function resetForm() {
+      form.reset();
+      choice.bien = choice.travaux = '';
+      form.querySelectorAll('.devis-opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
+      form.querySelectorAll('.devis-input').forEach(i => i.removeAttribute('aria-invalid'));
+      hideError(); updateNext(); currentStep = 1;
+    }
+    function updateNext() {
+      const ready = !!(choice.bien && choice.travaux);
+      nextBtn.disabled = !ready;
+      nextBtn.classList.toggle('bg-slate-400', !ready);
+      nextBtn.classList.toggle('cursor-not-allowed', !ready);
+      nextBtn.classList.toggle('bg-brand-primary', ready);
+      nextBtn.classList.toggle('hover:bg-brand-primaryHover', ready);
+    }
+    function showError(msg) { errorBox.textContent = msg; errorBox.classList.remove('hidden'); }
+    function hideError() { errorBox.textContent = ''; errorBox.classList.add('hidden'); }
+
+    document.querySelectorAll('[data-open-devis]').forEach(el => el.addEventListener('click', openModal));
+    modal.querySelectorAll('[data-close-devis]').forEach(el => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
+
+    form.querySelectorAll('.devis-opt').forEach(btn => btn.addEventListener('click', () => {
+      const g = btn.dataset.group;
+      form.querySelectorAll(`.devis-opt[data-group="${g}"]`).forEach(b => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      choice[g] = btn.dataset.value;
+      updateNext();
+    }));
+    nextBtn.addEventListener('click', () => { if (!nextBtn.disabled) showStep(2); });
+    backBtn.addEventListener('click', () => { hideError(); showStep(1); });
+    form.querySelectorAll('.devis-input').forEach(i => i.addEventListener('input', () => i.removeAttribute('aria-invalid')));
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      hideError();
+      let firstInvalid = null;
+      form.querySelectorAll('.devis-input').forEach(input => {
+        input.value = input.value.trim();
+        const ok = input.checkValidity();
+        input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (!ok && !firstInvalid) firstInvalid = input;
+      });
+      if (firstInvalid) {
+        const msgs = {
+          'd-email': 'Vérifiez votre adresse email.',
+          'd-tel': 'Vérifiez votre numéro de téléphone (ex : 06 12 34 56 78).',
+          'd-cp': 'Le code postal doit contenir 5 chiffres.'
+        };
+        showError(firstInvalid.value ? (msgs[firstInvalid.id] || 'Merci de compléter ce champ.') : 'Merci de remplir tous les champs obligatoires.');
+        firstInvalid.focus();
+        return;
+      }
+      if (form.site_web.value) { showStep(3); return; }
+
+      const data = {
+        access_key: KEY,
+        subject: `Demande de devis – ${form.prenom.value} ${form.nom.value} (${form.code_postal.value})`,
+        from_name: `Site ${NOM}`,
+        'Type de bien': choice.bien,
+        'Travaux': choice.travaux,
+        'Prénom': form.prenom.value,
+        'Nom': form.nom.value,
+        email: form.email.value,
+        'Téléphone': form.telephone.value,
+        'Code postal du chantier': form.code_postal.value,
+        'Source': window.siteSource ? window.siteSource() : 'Inconnue'
+      };
+
+      if (!KEY) { showError(`Le formulaire n'est pas encore activé. Appelez-nous au ${TEL}.`); return; }
+      submitBtn.disabled = true; submitBtn.textContent = 'Envoi…';
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.success === false) throw new Error(json.message || ('HTTP ' + res.status));
+        if (window.siteLead) window.siteLead();
+        showStep(3);
+      } catch (err) {
+        showError(`L'envoi n'a pas fonctionné. Réessayez ou appelez-nous au ${TEL}.`);
+      } finally {
+        submitBtn.disabled = false; submitBtn.textContent = 'Envoyer';
+      }
+    });
+  })();
+</script>
+
+<!-- ================= BANDEAU COOKIES + PIXEL META ================= -->
+<div aria-label="Cookies" class="cookie-banner" hidden id="cookie-banner" role="dialog">
+  <p>Nous utilisons un cookie de mesure Facebook (pixel Meta) pour savoir combien de demandes de devis viennent de nos publicités. Il n'est déposé que si vous l'acceptez.</p>
+  <div class="cookie-actions">
+    <button data-cookie-refuse type="button">Refuser</button>
+    <button data-cookie-accept type="button">Accepter</button>
+  </div>
+</div>
+<script>
+  (() => {
+    const PIXEL_ID = window.SITE.pixelId;
+    const KEY = 'site_cookies';
+
+    // Provenance du visiteur (ajoutée à chaque demande de devis)
+    try {
+      const p = new URLSearchParams(location.search);
+      const src = p.get('utm_source') || (p.get('fbclid') ? 'facebook' : '') || (p.get('gclid') ? 'google' : '');
+      if (src) {
+        const camp = p.get('utm_campaign');
+        sessionStorage.setItem('site_source', src + (camp ? ' / ' + camp : ''));
+      } else if (!sessionStorage.getItem('site_source')) {
+        let r = 'Direct';
+        if (document.referrer && !document.referrer.includes(location.hostname)) {
+          try { r = new URL(document.referrer).hostname; } catch (e) {}
+        }
+        sessionStorage.setItem('site_source', r);
+      }
+    } catch (e) {}
+    window.siteSource = () => {
+      try { return sessionStorage.getItem('site_source') || 'Direct'; } catch (e) { return 'Inconnue'; }
+    };
+
+    // Pixel Meta, chargé seulement après accord
+    let loaded = false;
+    function loadPixel() {
+      if (loaded || !PIXEL_ID) return;
+      loaded = true;
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+    window.siteLead = () => { if (loaded && window.fbq) fbq('track', 'Lead'); };
+
+    const banner = document.getElementById('cookie-banner');
+    const getChoice = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+    const setChoice = v => { try { localStorage.setItem(KEY, v); } catch (e) {} };
+    const choice = getChoice();
+    if (!PIXEL_ID) { document.querySelectorAll('[data-cookie-settings]').forEach(b => { const sep = b.previousElementSibling; if (sep) sep.remove(); b.remove(); }); return; }
+    if (choice === 'accepte') loadPixel();
+    else if (choice !== 'refuse') banner.hidden = false;
+
+    banner.querySelector('[data-cookie-accept]').addEventListener('click', () => {
+      setChoice('accepte'); banner.hidden = true; loadPixel();
+    });
+    banner.querySelector('[data-cookie-refuse]').addEventListener('click', () => {
+      setChoice('refuse'); banner.hidden = true;
+      if (loaded) location.reload();
+    });
+    document.querySelectorAll('[data-cookie-settings]').forEach(b => b.addEventListener('click', () => { banner.hidden = false; }));
+  })();
+</script>
+</body>
+</html>

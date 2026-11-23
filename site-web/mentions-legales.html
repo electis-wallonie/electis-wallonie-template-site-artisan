@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mentions légales - {{NOM_ENTREPRISE}}</title>
+<meta name="description" content="Mentions légales du site de {{NOM_ENTREPRISE}}, {{METIER_MINUSCULE}} à {{VILLE}}."/>
+<link href="css/theme.css" rel="stylesheet"/>
+<link href="images/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--font-body); color: #334155; background: #fff; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: rgb(var(--brand-primary)); }
+  a:hover { color: rgb(var(--brand-primary-hover)); }
+  .condensed { font-family: var(--font-title); text-transform: uppercase; letter-spacing: 0.02em; }
+  header { border-bottom: 1px solid #E2E8F0; }
+  .bar { max-width: 820px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .logo { text-decoration: none; display: flex; }
+  .back { font-weight: 600; font-size: .95rem; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  main { max-width: 820px; margin: 0 auto; padding: 40px 20px 64px; }
+  h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); line-height: 1.1; color: rgb(var(--brand-dark)); margin: 0 0 8px; }
+  .updated { color: #64748B; font-size: .9rem; margin: 0 0 32px; }
+  h2 { font-size: 1.35rem; color: rgb(var(--brand-dark)); margin: 40px 0 10px; padding-top: 14px; border-top: 3px solid rgb(var(--brand-primary)); display: inline-block; }
+  p { margin: 0 0 14px; }
+  ul { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  strong { color: rgb(var(--brand-darker)); }
+  .card { background: rgb(var(--brand-light)); border-radius: 8px; padding: 18px 20px; margin: 0 0 14px; }
+  .card p:last-child { margin-bottom: 0; }
+  footer { background: rgb(var(--brand-darker)); color: #94A3B8; text-align: center; font-size: .85rem; padding: 24px 20px; }
+  footer a { color: #E2E8F0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="logo" href="./" aria-label="{{NOM_ENTREPRISE}}, retour à l'accueil">
+      <img alt="{{NOM_ENTREPRISE}}" src="images/logo.svg" height="48" width="171" style="height:48px;width:auto"/>
+    </a>
+    <a class="back" href="./">← Retour au site</a>
+  </div>
+</header>
+
+<main>
+  <h1 class="condensed">Mentions légales</h1>
+  <p class="updated">Dernière mise à jour : {{DATE_MAJ}}</p>
+
+  <h2 class="condensed">Éditeur du site</h2>
+  <div class="card">
+    <p><strong>{{NOM_ENTREPRISE}}</strong>, {{FORME_JURIDIQUE}}<br/>
+    {{ADRESSE}}, France<br/>
+    SIREN : {{SIREN}}<br/>
+    Téléphone : <a href="tel:{{TEL_LIEN}}">{{TEL_AFFICHE}}</a><br/>
+    Email : <a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+  </div>
+  <p>Directeur de la publication : {{DIRIGEANT}}.</p>
+
+  <h2 class="condensed">Hébergement</h2>
+  <div class="card">
+    <p><strong>GitHub, Inc.</strong> (service GitHub Pages)<br/>
+    88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis<br/>
+    <a href="https://github.com" rel="noopener" target="_blank">github.com</a></p>
+  </div>
+
+  <h2 class="condensed">Propriété intellectuelle</h2>
+  <p>Les textes, photos et logos de ce site appartiennent à {{NOM_ENTREPRISE}} ou sont utilisés avec l'accord de leur auteur. Toute reproduction sans autorisation est interdite.</p>
+
+  <h2 class="condensed">Données personnelles et cookies</h2>
+  <p>Le traitement des informations envoyées par le formulaire de devis et l'utilisation des cookies sont détaillés dans la <a href="confidentialite.html">politique de confidentialité</a>.</p>
+</main>
+
+<footer>
+  <p style="margin:0">{{NOM_ENTREPRISE}} {{ANNEE}} · {{VILLE_SIEGE}} ({{CODE_POSTAL}}) · <a href="./">Retour au site</a></p>
+</footer>
+
+</body>
+</html>
